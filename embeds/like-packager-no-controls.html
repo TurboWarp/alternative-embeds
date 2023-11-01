@@ -102,7 +102,8 @@
     <script>
       const searchParams = new URLSearchParams(location.search);
       const projectId = searchParams.get('id') || '437419376';
-      const PROJECT_ID = location.hash.substr(1) || '1';
+      const width = +searchParams.get('width') || 480;
+      const height = +searchParams.get('height') || 360;
 
       const appElement = document.getElementById('app');
       const launchScreen = document.getElementById('launch');
@@ -112,6 +113,8 @@
       const errorInformation = document.getElementById('error-information');
 
       const scaffolding = new Scaffolding.Scaffolding();
+      scaffolding.width = width;
+      scaffolding.height = height;
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
