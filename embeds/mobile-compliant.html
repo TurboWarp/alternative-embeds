@@ -104,6 +104,7 @@
       const projectId = searchParams.get('id') || '437419376';
       const width = +searchParams.get('width') || 480;
       const height = +searchParams.get('height') || 360;
+      const autostart = searchParams.has('autostart');
 
       const appElement = document.getElementById('app');
       const launchScreen = document.getElementById('launch');
@@ -156,12 +157,17 @@
         await scaffolding.loadProject(projectData);
         setProgress(1);
         loadingScreen.hidden = true;
-        launchScreen.hidden = false;
-        launchScreen.addEventListener('click', () => {
-          launchScreen.hidden = true;
+
+        if (autostart) {
           scaffolding.start();
-        });
-        launchScreen.focus();
+        } else {
+          launchScreen.hidden = false;
+          launchScreen.addEventListener('click', () => {
+            launchScreen.hidden = true;
+            scaffolding.start();
+          });
+          launchScreen.focus();
+        }
       };
 
       const handleError = (error) => {
